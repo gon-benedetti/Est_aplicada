@@ -1,0 +1,16 @@
+---
+title: "Entrega N° 1 - Grupo 01"
+output: html_notebook
+---
+
+
+
+```{r}
+# Librerías
+
+library(tidyverse)
+library(FrF2)
+library(emmeans)
+```
+
+
