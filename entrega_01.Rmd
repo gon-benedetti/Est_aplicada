@@ -1,11 +1,12 @@
 ---
 title: "Entrega N° 1 - Grupo 01"
 output: html_notebook
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
-
-
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Librerías
 
 library(tidyverse)
@@ -13,111 +14,187 @@ library(FrF2)
 library(emmeans)
 ```
 
-# Práctica 1 
+# Práctica 1
 
-## Ejercicio 1 
+## Ejercicio 1 (Aylén)
 
-Análisis del artículo: “Characterizing mutagenic effects of recombination through a sequencelevel genetic map” (Halldorsson et al, 2019).
-1. Leer el resumen de investigación (adjunto en este documento). Identificar el tema y el
-objetivo del trabajo.
-2. Al final de este documento se agrega una selección de figuras tomadas del artículo.
-Identificar una figura donde se observe cada uno de los hallazgos resaltados en la sección
-Results del resumen.
-3. Acerca de la figura 2D: describir la distribución de la distancia desde una mutación de novo
+Análisis del artículo: “Characterizing mutagenic effects of
+recombination through a sequencelevel genetic map” (Halldorsson et al,
+2019). 1. Leer el resumen de investigación (adjunto en este documento).
+Identificar el tema y el objetivo del trabajo. 2. Al final de este
+documento se agrega una selección de figuras tomadas del artículo.
+Identificar una figura donde se observe cada uno de los hallazgos
+resaltados en la sección Results del resumen. 3. Acerca de la figura 2D:
+describir la distribución de la distancia desde una mutación de novo
 (DNM) hasta un crossover (CO,) y comparar entre CO maternos y paternos.
-4. Acerca de las figuras 2A y 2E:
-a. ¿Qué sucede con la tasa de (DNM) a medida que aumenta la distancia desde un
-crossover (CO)?
-b. ¿Se diferencia la tasa de DNM según se encuentren alrededor de un CO materno o
-paterno?
-c. ¿Cómo se compara la tasa de DNM en cercanías de CO frente a la tasa global de DNM
-en el genoma?
-d. ¿Qué diferencia hay entre las figuras 2A y 2E?
-e. ¿Qué representan los puntos? ¿Qué representan las líneas? ¿Hay mayor variabilidad en
-la tasa de DNM a mayor distancia del CO? Observar y comentar la escala elegida.
-5. Acerca de la figura 2C: ¿cuáles son las tres variables cualitativas representadas?
-6. Acerca de la figura 2B:
-a. Mencionar un tipo de mutación que ocurre con frecuencia similar, ya sea en todo el
-genoma (materno o paterno) o cerca de un CO (materno o paterno).
-b. Mencionar un tipo de mutación que ocurre con mayor frecuencia en cercanía a un CO
-materno. 
+4. Acerca de las figuras 2A y 2E: a. ¿Qué sucede con la tasa de (DNM) a
+medida que aumenta la distancia desde un crossover (CO)? b. ¿Se
+diferencia la tasa de DNM según se encuentren alrededor de un CO materno
+o paterno? c. ¿Cómo se compara la tasa de DNM en cercanías de CO frente
+a la tasa global de DNM en el genoma? d. ¿Qué diferencia hay entre las
+figuras 2A y 2E? e. ¿Qué representan los puntos? ¿Qué representan las
+líneas? ¿Hay mayor variabilidad en la tasa de DNM a mayor distancia del
+CO? Observar y comentar la escala elegida. 5. Acerca de la figura 2C:
+¿cuáles son las tres variables cualitativas representadas? 6. Acerca de
+la figura 2B: a. Mencionar un tipo de mutación que ocurre con frecuencia
+similar, ya sea en todo el genoma (materno o paterno) o cerca de un CO
+(materno o paterno). b. Mencionar un tipo de mutación que ocurre con
+mayor frecuencia en cercanía a un CO materno.
 
-# Práctica 2 
+# Práctica 2
 
-## Ejercicio 5 
+## Ejercicio 5 (Gonzalo)
 
-La concentración sérica de 25-hidroxivitamina D (25-OHD) es utilizada como indicador del
-estado nutricional de Vitamina D (VD). El método más utilizado para medirla es el RIA. El
-desarrollo reciente de métodos automatizados no radiactivos facilitaría la práctica diaria de
-laboratorio y el diagnóstico de necesidad de suplementación.
-Objetivos: Comparar los datos de 25-OHD obtenidos usando un RIA y un método de
+La concentración sérica de 25-hidroxivitamina D (25-OHD) es utilizada
+como indicador del estado nutricional de Vitamina D (VD). El método más
+utilizado para medirla es el RIA. El desarrollo reciente de métodos
+automatizados no radiactivos facilitaría la práctica diaria de
+laboratorio y el diagnóstico de necesidad de suplementación. Objetivos:
+Comparar los datos de 25-OHD obtenidos usando un RIA y un método de
 quimioluminiscencia (QLIA) automatizado disponible en nuestro medio.
-Materiales y métodos: Concentraciones de 25-OHD se midieron en suero de 16 pacientes. Las
-mediciones de 25-OHD (ng/mL) se realizaron con un RIA y un QLIA automatizado (LIAISON),
-ambos DiaSorin. En el archivo “vitD.txt” se presentan las determinaciones obtenidas.
-¿Existe evidencia para concluir que ambos métodos permiten determinar el mismo valor
+Materiales y métodos: Concentraciones de 25-OHD se midieron en suero de
+16 pacientes. Las mediciones de 25-OHD (ng/mL) se realizaron con un RIA
+y un QLIA automatizado (LIAISON), ambos DiaSorin. En el archivo
+“vitD.txt” se presentan las determinaciones obtenidas. ¿Existe evidencia
+para concluir que ambos métodos permiten determinar el mismo valor
 promedio de 25 hidroxivitamina D (250HD)?
 
-# Práctica 3 
+### a) Variables, factor y tipo de muestras
 
-## Ejercicio 4 
+• Variable aleatoria: concentración de 25-OHD (ng mL⁻¹).\
+• Factor en estudio: Método (dos niveles: RIA y QLIA).\
+• Las mediciones están emparejadas (cada paciente es su propio control)
+⇒ muestras dependientes.
 
-Se realizó un experimento con el objetivo de evaluar el efecto que tienen la temperatura y el
-porcentaje de un compuesto sobre el rendimiento de una reacción química. Los tratamientos
-estudiados fueron las combinaciones de tres temperaturas y tres porcentajes del compuesto. Se
-realizaron un total de 18 reacciones utilizando un diseño balanceado, asignando al azar el orden
-en que se probaron los tratamientos. La respuesta medida fue la diferencia entre el rendimiento
-teórico de la reacción y el observado. Los valores observados se encuentran en el archivo
-“rendimiento.txt”.
-El objetivo final del problema es minimizar la diferencia entre el rendimiento teórico de la
-reacción y el observado.
-a) Realice un breve análisis descriptivo de los datos y describa brevemente lo observado
-en el mismo.
-b) Ajuste el modelo lineal apropiado para el diseño experimental y evalúe la existencia
-de efecto interacción entre temperatura y porcentaje del compuesto. ¿Puede
-ajustarse un modelo lineal “simplificado”?
-c) Verifique el cumplimiento de supuestos del modelo lineal elegido según la respuesta
-del punto anterior.
-d) Evalúe la existencia de efectos no lineales en los factores cuantitativos.
-e) Busque las condiciones que minimizan la diferencia entre el rendimiento teórico de la
-reacción y el observado y estime la respuesta media para dichas condiciones. 
+### b) Descripción de los datos
 
-# Práctica 4  
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+vitD <- read_delim("vitD.txt", delim = "\t", 
+    escape_double = FALSE, col_types = cols(...4 = col_skip(), 
+        ...5 = col_skip()), trim_ws = TRUE)
 
-## Ejercicio 3 
+# Resumen numérico
+summary(vitD$RIA); sd(vitD$RIA)
+summary(vitD$QLIA); sd(vitD$QLIA)
 
-Con referencia al artículo: Influencia del síndrome de Gilbert en los valores de bilirrubina sérica
-y presencia de litiasis vesicular en pacientes con hemólisis crónica congénita,
-a) ¿Cuál o cuáles variables se estudiaron en este trabajo?
-b) Defina los distintos tratamientos considerados.
-c) A partir de la observación de la Figura 2, fundamente la aplicación de la técnica
-estadística utilizada.
-d) ¿Cuál fue la conclusión a la que se llegó mediante el test de Kruskal-Wallis?
-e) ¿Qué comentarios puede realizar acerca de la utilización de la prueba de Mann-Whitney
-para comparar los valores de bilirrubina en tres pares de grupos?
-f) Comente los resultados finales. 
+# Formato largo para graficar
+vitD_long <- pivot_longer(vitD, cols = c(RIA, QLIA),
+                          names_to = "Metodo", values_to = "OHD")
 
-# Práctica 5 
+ggplot(vitD_long, aes(Metodo, OHD, group = Paciente))+
+  geom_line(colour = "grey50")+
+  geom_point(size = 3)
+```
 
-## Ejercicio 3 
+El gráfico de líneas (una línea por paciente) muestra que la mayoría de
+los puntos de QLIA están por encima de los de RIA.
 
-En disciplinas como la Ecología o la Biología de la Conservación, uno de los problemas comunes
-es la identificación de los factores que influyen en variables como la riqueza de una especie,
-medida en este caso como el número de individuos presentes en un área determinada.
-En un estudio sobre la población de un parásito, se registró el logaritmo del recuento de
-parásitos de dicha especie en 15 localizaciones con diversas condiciones ambientales. Como
-variables explicativas se consideraron la temperatura (x1, en °C) y el porcentaje de humedad (x2).
-Los datos obtenidos se encuentran en el archivo “parasito.txt”.
-a) Realice el ajuste del modelo de regresión lineal múltiple incluyendo las 2 variables
-explicativas como variables regresoras y escriba la función de regresión estimada.
-b) Ensaye la significación global de la regresión.
-c) Realice las pruebas de hipótesis que le permitan evaluar:
-i. Si el coeficiente de regresión β1 es igual a cero.
-ii. Si el coeficiente de regresión β2 es igual a cero.
-d) Evalúe la adecuación del modelo propuesto a través del valor de R2
-y del análisis de
-residuos.
-e) Ajuste el modelo Y = 0 + 1x1+ ε. Utilice la información del modelo para probar la
-significación de la variable predictora Humedad con un test F. Ayuda: revisar test de
-significación para subconjuntos. ¿Coincide el resultado con el obtenido en el punto c?
-Justificar.
+### c) Parámetro e hipótesis
+
+Definimos la diferencia por paciente\
+d = RIA – QLIA.
+
+Parámetro: μ_d = media poblacional de la diferencia.
+
+Hipótesis bilateral\
+H₀ : μ_d = 0 (ambos métodos dan, en promedio, el mismo valor)\
+H₁ : μ_d ≠ 0
+
+α = 0,05.
+
+### d) Comprobación de supuestos
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+vitD$d <- vitD$RIA - vitD$QLIA
+shapiro.test(vitD$d)   
+qqnorm(vitD$d); qqline(vitD$d)
+```
+
+p = 0.69 → no se rechaza la normalidad; el gráfico QQ luce aceptable.\
+⇒ Se cumplen los supuestos para el t-test pareado.
+
+### e) Prueba de hipótesis y conclusión
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+t.test(vitD$RIA, vitD$QLIA, paired = TRUE)
+
+```
+
+Interpretación
+
+• El valor-p = 0,0015 \< 0,05 ⇒ se rechaza H₀.\
+• El IC95 % para (RIA – QLIA) es (−0,996 ; −0,292) ng mL⁻¹,
+completamente negativo.
+
+Conclusión (en palabras del problema)\
+Con un 95 % de confianza existe evidencia de que los dos métodos NO
+entregan, en promedio, la misma concentración de 25-hidroxivitamina D.
+El método RIA produce valores aproximadamente 0,6 ng mL⁻¹ más bajos que
+el método automatizado de quimioluminiscencia (QLIA). Por lo tanto, al
+utilizar indistintamente ambos procedimientos debería contemplarse esta
+diferencia sistemática.
+
+# Práctica 3
+
+## Ejercicio 4 (Aylén)
+
+Se realizó un experimento con el objetivo de evaluar el efecto que
+tienen la temperatura y el porcentaje de un compuesto sobre el
+rendimiento de una reacción química. Los tratamientos estudiados fueron
+las combinaciones de tres temperaturas y tres porcentajes del compuesto.
+Se realizaron un total de 18 reacciones utilizando un diseño balanceado,
+asignando al azar el orden en que se probaron los tratamientos. La
+respuesta medida fue la diferencia entre el rendimiento teórico de la
+reacción y el observado. Los valores observados se encuentran en el
+archivo “rendimiento.txt”. El objetivo final del problema es minimizar
+la diferencia entre el rendimiento teórico de la reacción y el
+observado. a) Realice un breve análisis descriptivo de los datos y
+describa brevemente lo observado en el mismo. b) Ajuste el modelo lineal
+apropiado para el diseño experimental y evalúe la existencia de efecto
+interacción entre temperatura y porcentaje del compuesto. ¿Puede
+ajustarse un modelo lineal “simplificado”? c) Verifique el cumplimiento
+de supuestos del modelo lineal elegido según la respuesta del punto
+anterior. d) Evalúe la existencia de efectos no lineales en los factores
+cuantitativos. e) Busque las condiciones que minimizan la diferencia
+entre el rendimiento teórico de la reacción y el observado y estime la
+respuesta media para dichas condiciones.
+
+# Práctica 4
+
+## Ejercicio 3 (Gonzalo)
+
+Con referencia al artículo: Influencia del síndrome de Gilbert en los
+valores de bilirrubina sérica y presencia de litiasis vesicular en
+pacientes con hemólisis crónica congénita, a) ¿Cuál o cuáles variables
+se estudiaron en este trabajo? b) Defina los distintos tratamientos
+considerados. c) A partir de la observación de la Figura 2, fundamente
+la aplicación de la técnica estadística utilizada. d) ¿Cuál fue la
+conclusión a la que se llegó mediante el test de Kruskal-Wallis? e) ¿Qué
+comentarios puede realizar acerca de la utilización de la prueba de
+Mann-Whitney para comparar los valores de bilirrubina en tres pares de
+grupos? f) Comente los resultados finales.
+
+# Práctica 5
+
+## Ejercicio 3 (Gonzalo)
+
+En disciplinas como la Ecología o la Biología de la Conservación, uno de
+los problemas comunes es la identificación de los factores que influyen
+en variables como la riqueza de una especie, medida en este caso como el
+número de individuos presentes en un área determinada. En un estudio
+sobre la población de un parásito, se registró el logaritmo del recuento
+de parásitos de dicha especie en 15 localizaciones con diversas
+condiciones ambientales. Como variables explicativas se consideraron la
+temperatura (x1, en °C) y el porcentaje de humedad (x2). Los datos
+obtenidos se encuentran en el archivo “parasito.txt”. a) Realice el
+ajuste del modelo de regresión lineal múltiple incluyendo las 2
+variables explicativas como variables regresoras y escriba la función de
+regresión estimada. b) Ensaye la significación global de la regresión.
+c) Realice las pruebas de hipótesis que le permitan evaluar: i. Si el
+coeficiente de regresión β1 es igual a cero. ii. Si el coeficiente de
+regresión β2 es igual a cero. d) Evalúe la adecuación del modelo
+propuesto a través del valor de R2 y del análisis de residuos. e) Ajuste
+el modelo Y = 0 + 1x1+ ε. Utilice la información del modelo para
+probar la significación de la variable predictora Humedad con un test F.
+Ayuda: revisar test de significación para subconjuntos. ¿Coincide el
+resultado con el obtenido en el punto c? Justificar.
