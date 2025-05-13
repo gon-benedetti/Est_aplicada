@@ -1,0 +1,139 @@
+---
+title: "Práctica 3 ejercicio 4"
+output: html_notebook
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+Ejercicio 4: Variable aleatoria Y: Rendimiento de la reacción química
+(diferencia entre el rendimiento teórico y el observado). Es una
+variable cuantitativa continua.
+
+Factores en estudio:
+
+-   Temperatura: cuantitativa
+
+Niveles: 50, 75 y 100 ºC
+
+-   Compuesto B: cuantitativa
+
+Niveles: 40, 60 y 80%.
+
+No hay factor de bloqueo.
+
+Análisis descriptivo del conjunto de datos:
+
+```{r Descriptiva, echo = FALSE, results = "show"}
+library(tidyverse)
+rendimiento <- read.delim("~/Aylén/Trabajos/Cursos/FCByF/Datos-20250512/rendimiento.txt") #REVISAR
+rendimiento$Temperatura <- gsub(" *C", "", rendimiento$Temperatura)
+rendimiento %>%
+  group_by(Temperatura, Porcentaje) %>%
+  summarise(
+    Media = mean(Respuesta),
+    SD = sd(Respuesta),
+    Mediana = median(Respuesta),
+    Rango = max(Respuesta)-min(Respuesta),
+    .groups = 'drop'
+  )
+```
+
+```{r Descriptiva_2, echo = FALSE, results = "show"}
+
+rendimiento$Temperatura <- factor(rendimiento$Temperatura)
+rendimiento$Porcentaje <- factor(rendimiento$Porcentaje)
+
+ggplot(rendimiento, aes(x = Porcentaje, y = Respuesta)) +
+  geom_boxplot(fill = "lightblue", color = "black") +
+  facet_wrap(~ Temperatura, nrow = 1) +
+  labs(title = "Rendimiento según temperatura de la reacción",
+       x = "Porcentaje del compuesto (%)",
+       y = "Rendimiento (Rend. teórico - Rend. observado") +
+  theme_minimal()
+```
+
+Evaluación de la interacción entre factores
+
+```{r Interaccion, echo = FALSE, results = "show"}
+interaction.plot(rendimiento$Temperatura, rendimiento$Porcentaje, rendimiento$Respuesta,
+                 main = "Gráfico de interacción", xlab = "Temperatura (ºC)", ylab = "Rendimiento")
+```
+
+Se observa una pendiente más pronunciada para el rendimiento de la
+reacción en el cambio de temperatura entre 50 y 75ºC para un porcentaje
+de B=60%.
+
+```{r Modelo, echo = FALSE, results = "show"}
+
+modelo <- aov(Respuesta ~ Temperatura * Porcentaje, data = rendimiento)
+summary(modelo)
+```
+
+Analizando detalladamente la salida del cuadro ANOVA, encontramos que no
+es significativa la interacción entre las variables *Temperatura* y
+*Porcentaje*. Por lo que podemos resumir el modelo a uno sin
+interacción.
+
+```{r Modelo 2, echo = FALSE, results = "show"}
+modelo_2 <- aov(Respuesta ~ Temperatura + Porcentaje, data = rendimiento)
+summary(modelo_2)
+```
+
+Para la verificación del cumplimiento de supuestos del modelo,
+analizamos: - Linealidad y homocedasticidad: residuales vs ajustados.
+
+```{r Linealidad, echo = FALSE, results = "show"}
+plot(fitted(modelo_2), residuals(modelo_2),
+     xlab = "Valores ajustados",
+     ylab = "Residuos",
+     main = "Residuos vs Ajustados")
+abline(h = 0, col = "red")
+```
+
+Se observa una distribución *aleatoria* en torno al valor esperado (0).\
+- Normalidad
+
+```{r QQ 2, echo = FALSE, results = "show"}
+shapiro.test(modelo_2$residuals)
+qqnorm(modelo_2$residuals)
+qqline(modelo_2$residuals)
+```
+
+Debido a que el p-value\>0.05, no rechazamos la hipótesis de normalidad.
+
+-   Independencia\
+    Podemos asumir independencia porque la asignación del tratamiento
+    fue aleatorizada. Análisis de comparaciones múltiples
+
+Entonces, revisando la salida de R podemos representar al modelo como:
+
+```{r Modelo lm, echo = FALSE, results = "show"}
+summary.lm(modelo_2)
+```
+
+Evaluación de efectos no lineales
+
+```{r efectos no lineales, echo = FALSE, results = "show"}
+rendimiento$Temperatura <- as.numeric(as.character(rendimiento$Temperatura))
+rendimiento$Porcentaje <- as.numeric(as.character(rendimiento$Porcentaje))
+modelo_lineal <- lm(Respuesta ~ Temperatura + Porcentaje, data = rendimiento)
+modelo_cuad <- lm(Respuesta ~ Temperatura + I(Temperatura^2) +
+                    Porcentaje + I(Porcentaje^2), 
+                  data = rendimiento)
+anova(modelo_lineal, modelo_cuad)
+```
+
+Podemos concluir que hay evidencia de efectos no lineales.\
+Análisis de la combinación de Temperatura y Porcentaje que minimiza la
+diferencia entre el Rendimiento teórico y el observado.
+
+```{r medias ajustadas, echo = FALSE, results = "show"}
+library(emmeans)
+contrastes<-emmeans(modelo_2, ~ Temperatura + Porcentaje)
+contrastes
+plot(contrastes)
+```
+
+Concluimos que la combinación de 75ºC de temperatura y un 40% del
+compuesto B minimiza la diferencia entre el teórico y el observado.

@@ -1,8 +1,10 @@
 ---
 title: "Entrega N° 1 - Grupo 01"
-output: html_notebook
-editor_options: 
-  markdown: 
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  markdown:
     wrap: 72
 ---
 
@@ -16,55 +18,125 @@ library(emmeans)
 
 # Práctica 1
 
-## Ejercicio 1 (Aylén)
+## Ejercicio 1
 
 Análisis del artículo: “Characterizing mutagenic effects of
 recombination through a sequencelevel genetic map” (Halldorsson et al,
-2019). 1. Leer el resumen de investigación (adjunto en este documento).
-Identificar el tema y el objetivo del trabajo. 2. Al final de este
-documento se agrega una selección de figuras tomadas del artículo.
-Identificar una figura donde se observe cada uno de los hallazgos
-resaltados en la sección Results del resumen. 3. Acerca de la figura 2D:
-describir la distribución de la distancia desde una mutación de novo
-(DNM) hasta un crossover (CO,) y comparar entre CO maternos y paternos.
-4. Acerca de las figuras 2A y 2E: a. ¿Qué sucede con la tasa de (DNM) a
-medida que aumenta la distancia desde un crossover (CO)? b. ¿Se
-diferencia la tasa de DNM según se encuentren alrededor de un CO materno
-o paterno? c. ¿Cómo se compara la tasa de DNM en cercanías de CO frente
-a la tasa global de DNM en el genoma? d. ¿Qué diferencia hay entre las
-figuras 2A y 2E? e. ¿Qué representan los puntos? ¿Qué representan las
-líneas? ¿Hay mayor variabilidad en la tasa de DNM a mayor distancia del
-CO? Observar y comentar la escala elegida. 5. Acerca de la figura 2C:
-¿cuáles son las tres variables cualitativas representadas? 6. Acerca de
-la figura 2B: a. Mencionar un tipo de mutación que ocurre con frecuencia
-similar, ya sea en todo el genoma (materno o paterno) o cerca de un CO
-(materno o paterno). b. Mencionar un tipo de mutación que ocurre con
-mayor frecuencia en cercanía a un CO materno.
+2019).
+
+### 1. Leer el resumen de investigación (adjunto en este documento). Identificar el tema y el objetivo del trabajo.
+
+Tema: Efectos mutagénicos de la recombinación meiótica utilizando un
+mapeo genético de alta resolución.
+
+Objetivo: Analizar la asociación de sexo, edad y variantes
+(epi)genéticas con las apariciones de mutaciones de novo.
+
+### 2. Al final de este documento se agrega una selección de figuras tomadas del artículo. Identificar una figura donde se observe cada uno de los hallazgos resaltados en la sección Results del resumen. 
+
+\- Frecuencia de cruces complejos según sexo de la progenie: Figura 2A
+(*Sex specific mutation rate vs Distance from crossover*) y 2E (*Sex
+specific mutation rate vs Distance from crossover*); que entendemos es
+la misma figura con otra escala en el eje horizontal. Se encuentra
+discriminado según entrecruzamiento materno o paterno. Aunque la tasa de
+entrecruzamiento materno es menor a mayor distancia (entrecruzamiento
+complejo). Esto no estaría en concordancia con lo propuesto por la
+autoría.
+
+ - Aumento de la tasa de entrecruzamiento con la edad materna: Figura 3A
+(*Maternal recombination rate vs Mother’s age at birth*). Se observa un
+aumento en la tasa de recombinación materna al aumentar la edad al
+nacimiento. Vale aclarar que las unidades de la tasa de recombinación no
+es clara.
+
+\- Aumento del porcentaje de entrecruzamientos complejo con la edad
+materna: Figura 3B (*Percentage of complex crossover vs Mother’s age at
+birth*). Se observa un aumento en el porcentaje de entrecruzamientos
+complejos al aumentar la edad al nacimiento aunque no resulta fácil
+interpretar las unidades ya que solamente se indican los valores 1 y 2
+en el eje *y*.
+
+*- Aumento en los DNM dentro de 1 kb de los cruces, diferenciando por
+sexo: Figura 2B (Fraction vs Mutation class).*
+
+### 3. Acerca de la figura 2D: describir la distribución de la distancia desde una mutación de novo (DNM) hasta un crossover (CO,) y comparar entre CO maternos y paternos. 
+
+La distribución de la distancia de la DNM al CO es asimétrica a la
+derecha en ambos casos; aunque el CO paterno parecería ser más
+pronunciado. Esto puede interpretarse como que el CO materno, en
+promedio, ocurre a una mayor distancia de la DNM.
+
+### 4. Acerca de las figuras 2A y 2E: 
+
+#### a. ¿Qué sucede con la tasa de (DNM) a medida que aumenta la distancia desde un crossover (CO)?
+
+Para ambos sexos, disminuye la tasa.
+
+#### b. ¿Se diferencia la tasa de DNM según se encuentren alrededor de un CO materno o paterno? 
+
+Habría que realizar un análisis estadístico apropiado, pero parecería
+hacer diferencia ya que el valor medio del CO materno se encuentra, en
+todos los casos, por debajo del CO paterno.
+
+#### c. ¿Cómo se compara la tasa de DNM en cercanías de CO frente a la tasa global de DNM en el genoma?
+
+En cercanías de la DNM al CO, [0-1000], tanto el CO materno como paterno
+se encuentran por encima de la tasa GW,
+
+#### d. ¿Qué diferencia hay entre las figuras 2A y 2E?
+
+Parecería ser que la única diferencia es la construcción de los
+intervalos de las distancias de la DNM al CO.
+
+#### e. ¿Qué representan los puntos? ¿Qué representan las líneas? ¿Hay mayor variabilidad en la tasa de DNM a mayor distancia del CO? Observar y comentar la escala elegida.
+
+Interpretamos que los puntos representan los valores medios o centrales
+de la tasa de mutación correspondiente a cada intervalo de distancia al
+CO. Los segmentos podrían representar la variabilidad.
+
+### 5. Acerca de la figura 2C: ¿cuáles son las tres variables cualitativas representadas? 
+
+La figura 2 C presenta las variables categóricas “sexo del progenitor”,
+“orientación del entrecruzamiento” y “tipo de mutación”.
+
+### 6. Acerca de la figura 2B: 
+
+#### a. Mencionar un tipo de mutación que ocurre con frecuencia similar, ya sea en todo el genoma (materno o paterno) o cerca de un CO (materno o paterno).
+
+Las mutaciones que presentan, en general, una fracción similar son las
+genómicas. C\>G, CpG\>TpG, Indel y T\>A.
+
+#### b. Mencionar un tipo de mutación que ocurre con mayor frecuencia en cercanía a un CO materno.
+
+C\>T
 
 # Práctica 2
 
-## Ejercicio 5 (Gonzalo)
+## Ejercicio 5
 
 La concentración sérica de 25-hidroxivitamina D (25-OHD) es utilizada
 como indicador del estado nutricional de Vitamina D (VD). El método más
 utilizado para medirla es el RIA. El desarrollo reciente de métodos
 automatizados no radiactivos facilitaría la práctica diaria de
-laboratorio y el diagnóstico de necesidad de suplementación. Objetivos:
-Comparar los datos de 25-OHD obtenidos usando un RIA y un método de
-quimioluminiscencia (QLIA) automatizado disponible en nuestro medio.
+laboratorio y el diagnóstico de necesidad de suplementación.
+
+Objetivos: Comparar los datos de 25-OHD obtenidos usando un RIA y un
+método de quimioluminiscencia (QLIA) automatizado disponible en nuestro
+medio.
+
 Materiales y métodos: Concentraciones de 25-OHD se midieron en suero de
 16 pacientes. Las mediciones de 25-OHD (ng/mL) se realizaron con un RIA
 y un QLIA automatizado (LIAISON), ambos DiaSorin. En el archivo
-“vitD.txt” se presentan las determinaciones obtenidas. ¿Existe evidencia
-para concluir que ambos métodos permiten determinar el mismo valor
-promedio de 25 hidroxivitamina D (250HD)?
+“vitD.txt” se presentan las determinaciones obtenidas.
+
+¿Existe evidencia para concluir que ambos métodos permiten determinar el
+mismo valor promedio de 25 hidroxivitamina D (250HD)?
 
 ### a) Variables, factor y tipo de muestras
 
-• Variable aleatoria: concentración de 25-OHD (ng mL⁻¹).\
+• Variable aleatoria: concentración de 25-OHD (ng/mL).\
 • Factor en estudio: Método (dos niveles: RIA y QLIA).\
-• Las mediciones están emparejadas (cada paciente es su propio control)
-⇒ muestras dependientes.
+• Las mediciones están pareadas ⇒ muestras dependientes.
 
 ### b) Descripción de los datos
 
@@ -74,8 +146,8 @@ vitD <- read_delim("vitD.txt", delim = "\t",
         ...5 = col_skip()), trim_ws = TRUE)
 
 # Resumen numérico
-summary(vitD$RIA); sd(vitD$RIA)
-summary(vitD$QLIA); sd(vitD$QLIA)
+print("RIA");summary(vitD$RIA); print('sd'); sd(vitD$RIA)
+print("QLIA");summary(vitD$QLIA); print('sd'); sd(vitD$QLIA)
 
 # Formato largo para graficar
 vitD_long <- pivot_longer(vitD, cols = c(RIA, QLIA),
@@ -83,6 +155,7 @@ vitD_long <- pivot_longer(vitD, cols = c(RIA, QLIA),
 
 ggplot(vitD_long, aes(Metodo, OHD, group = Paciente))+
   geom_line(colour = "grey50")+
+  labs(x = 'Método', y = 'OHD (ng/mL)')+
   geom_point(size = 3)
 ```
 
@@ -94,11 +167,11 @@ los puntos de QLIA están por encima de los de RIA.
 Definimos la diferencia por paciente\
 d = RIA – QLIA.
 
-Parámetro: μ_d = media poblacional de la diferencia.
+Parámetro: μ~d~ = media poblacional de la diferencia.
 
 Hipótesis bilateral\
-H₀ : μ_d = 0 (ambos métodos dan, en promedio, el mismo valor)\
-H₁ : μ_d ≠ 0
+H₀ : μ~d~= 0 (ambos métodos dan, en promedio, el mismo valor)\
+H₁ : μ~d~ ≠ 0
 
 α = 0,05.
 
@@ -110,8 +183,11 @@ shapiro.test(vitD$d)
 qqnorm(vitD$d); qqline(vitD$d)
 ```
 
-p = 0.69 → no se rechaza la normalidad; el gráfico QQ luce aceptable.\
-⇒ Se cumplen los supuestos para el t-test pareado.
+Test de shapiro: p = 0.69 → no se rechaza la normalidad; el gráfico QQ
+luce aceptable.\
+⇒ Se cumplen los supuestos para realizar el test de hipótesis.
+
+Se emplea un test-t para muestras pareadas
 
 ### e) Prueba de hipótesis y conclusión
 
@@ -122,21 +198,20 @@ t.test(vitD$RIA, vitD$QLIA, paired = TRUE)
 
 Interpretación
 
-• El valor-p = 0,0015 \< 0,05 ⇒ se rechaza H₀.\
-• El IC95 % para (RIA – QLIA) es (−0,996 ; −0,292) ng mL⁻¹,
-completamente negativo.
+• Probabilidad asociada = 0,0015 \< 0,05 ⇒ se rechaza H₀.\
+• El IC95 % para (RIA – QLIA) es (−0,996 ; −0,292) ng mL⁻¹, no pasa por
+el cero.
 
-Conclusión (en palabras del problema)\
-Con un 95 % de confianza existe evidencia de que los dos métodos NO
-entregan, en promedio, la misma concentración de 25-hidroxivitamina D.
-El método RIA produce valores aproximadamente 0,6 ng mL⁻¹ más bajos que
-el método automatizado de quimioluminiscencia (QLIA). Por lo tanto, al
-utilizar indistintamente ambos procedimientos debería contemplarse esta
-diferencia sistemática.
+Conclusión\
+Con un nivel de significación del 5% y en base a la evidencia muestral,
+se concluye que los dos métodos analizados NO determinan, en promedio,
+la misma concentración de 25-hidroxivitamina D. El método RIA produce en
+promedio valores más bajos que el método automatizado de
+quimioluminiscencia (QLIA).
 
 # Práctica 3
 
-## Ejercicio 4 (Aylén)
+## Ejercicio 4
 
 Se realizó un experimento con el objetivo de evaluar el efecto que
 tienen la temperatura y el porcentaje de un compuesto sobre el
@@ -148,35 +223,232 @@ respuesta medida fue la diferencia entre el rendimiento teórico de la
 reacción y el observado. Los valores observados se encuentran en el
 archivo “rendimiento.txt”. El objetivo final del problema es minimizar
 la diferencia entre el rendimiento teórico de la reacción y el
-observado. a) Realice un breve análisis descriptivo de los datos y
-describa brevemente lo observado en el mismo. b) Ajuste el modelo lineal
-apropiado para el diseño experimental y evalúe la existencia de efecto
-interacción entre temperatura y porcentaje del compuesto. ¿Puede
-ajustarse un modelo lineal “simplificado”? c) Verifique el cumplimiento
-de supuestos del modelo lineal elegido según la respuesta del punto
-anterior. d) Evalúe la existencia de efectos no lineales en los factores
-cuantitativos. e) Busque las condiciones que minimizan la diferencia
-entre el rendimiento teórico de la reacción y el observado y estime la
-respuesta media para dichas condiciones.
+observado.
+
+a) Realice un breve análisis descriptivo de los datos y describa
+brevemente lo observado en el mismo.
+
+b) Ajuste el modelo lineal apropiado para el diseño experimental y
+evalúe la existencia de efecto interacción entre temperatura y
+porcentaje del compuesto. ¿Puede ajustarse un modelo lineal
+“simplificado”?
+
+c) Verifique el cumplimiento de supuestos del modelo lineal elegido
+según la respuesta del punto anterior.
+
+d) Evalúe la existencia de efectos no lineales en los factores
+cuantitativos.
+
+e) Busque las condiciones que minimizan la diferencia entre el
+rendimiento teórico de la reacción y el observado y estime la respuesta
+media para dichas condiciones.
+
+### a) Análisis descriptivo del conjunto de datos
+
+Variable aleatoria Y: Rendimiento de la reacción química (diferencia
+entre el rendimiento teórico y el observado). Es una variable
+cuantitativa continua.
+
+Factores en estudio:
+
+-   Temperatura: cuantitativa
+
+Niveles: 50, 75 y 100 ºC
+
+-   Compuesto B: cuantitativa
+
+Niveles: 40, 60 y 80%.
+
+No hay factor de bloqueo.
+
+```{r Descriptiva, echo = FALSE, message=FALSE, warning=FALSE,results = "show"}
+rendimiento <- read.delim("rendimiento.txt")
+rendimiento$Temperatura <- gsub(" *C", "", rendimiento$Temperatura)
+rendimiento %>%
+  group_by(Temperatura, Porcentaje) %>%
+  summarise(
+    Media = mean(Respuesta),
+    SD = sd(Respuesta),
+    Mediana = median(Respuesta),
+    Rango = max(Respuesta)-min(Respuesta),
+    .groups = 'drop'
+  )
+```
+
+```{r Descriptiva_2, echo = FALSE, message=FALSE,warning=FALSE,results = "show"}
+
+rendimiento$Temperatura <- factor(rendimiento$Temperatura)
+rendimiento$Porcentaje <- factor(rendimiento$Porcentaje)
+
+ggplot(rendimiento, aes(x = Porcentaje, y = Respuesta)) +
+  geom_boxplot(fill = "lightblue", color = "black") +
+  facet_wrap(~ Temperatura, nrow = 1) +
+  labs(title = "Rendimiento según temperatura de la reacción",
+       x = "Porcentaje del compuesto (%)",
+       y = "Rendimiento (Rend. teórico - Rend. observado") +
+  theme_minimal()
+
+```
+
+### b) Ajuste del modelo lineal
+
+Evaluación de la interacción entre factores
+
+```{r Interaccion, echo = FALSE, message=FALSE, warning=FALSE,results = "show"}
+interaction.plot(rendimiento$Temperatura, rendimiento$Porcentaje, rendimiento$Respuesta,
+                 main = "Gráfico de interacción", xlab = "Temperatura (ºC)", ylab = "Rendimiento")
+
+```
+
+Se observa una pendiente más pronunciada para el rendimiento de la
+reacción en el cambio de temperatura entre 50 y 75ºC para un porcentaje
+de B=60%.
+
+```{r Modelo, echo = FALSE, results = "show"}
+modelo <- aov(Respuesta ~ Temperatura * Porcentaje, data = rendimiento) 
+summary(modelo)
+```
+
+Analizando detalladamente la salida del cuadro ANOVA, encontramos que no
+es significativa la interacción entre las variables *Temperatura* y
+*Porcentaje*. Por lo que podemos resumir el modelo a uno sin
+interacción.
+
+```{r Modelo 2, echo = FALSE, results = "show"}
+modelo_2 <- aov(Respuesta ~ Temperatura + Porcentaje, data = rendimiento) 
+summary(modelo_2)
+```
+
+### c) Cumplimiento de supuestos
+
+Para la verificación del cumplimiento de supuestos del modelo,
+analizamos: - Linealidad y homocedasticidad: residuales vs ajustados.
+
+```{r Linealidad, echo = FALSE, results = "show"}
+plot(fitted(modelo_2), residuals(modelo_2),      xlab = "Valores ajustados",      ylab = "Residuos",      main = "Residuos vs Ajustados") 
+abline(h = 0, col = "red")
+```
+
+Se observa una distribución *aleatoria* en torno al valor esperado (0).\
+- Normalidad
+
+```{r QQ 2, echo = FALSE, results = "show"}
+shapiro.test(modelo_2$residuals) 
+qqnorm(modelo_2$residuals) 
+qqline(modelo_2$residuals)
+```
+
+Debido a que el p-value\>0.05, no rechazamos la hipótesis de normalidad.
+
+-   Independencia\
+    Podemos asumir independencia porque la asignación del tratamiento
+    fue aleatorizada. Análisis de comparaciones múltiples
+
+Entonces, revisando la salida de R podemos representar al modelo como:
+
+```{r Modelo lm, echo = FALSE, results = "show"}
+summary.lm(modelo_2)
+```
+
+### d) Evaluación de efectos no lineales
+
+```{r efectos no lineales, echo = FALSE, results = "show"}
+rendimiento$Temperatura <- as.numeric(as.character(rendimiento$Temperatura))
+rendimiento$Porcentaje <- as.numeric(as.character(rendimiento$Porcentaje))
+modelo_lineal <- lm(Respuesta ~ Temperatura + Porcentaje, data = rendimiento)
+modelo_cuad <- lm(Respuesta ~ Temperatura + I(Temperatura^2) +
+                    Porcentaje + I(Porcentaje^2), 
+                  data = rendimiento)
+anova(modelo_lineal, modelo_cuad)
+```
+
+Podemos concluir que hay evidencia de efectos no lineales.
+
+###  e) Análisis de la combinación de Temperatura y Porcentaje que minimiza la diferencia entre el Rendimiento teórico y el observado
+
+```{r medias ajustadas, echo = FALSE, results = "show"}
+
+contrastes<-emmeans(modelo_2, ~ Temperatura + Porcentaje) 
+contrastes 
+plot(contrastes)
+```
+
+Concluimos que la combinación de 75ºC de temperatura y un 40% del
+compuesto B minimiza la diferencia entre el teórico y el observado.
 
 # Práctica 4
 
-## Ejercicio 3 (Gonzalo)
+## Ejercicio 3
 
 Con referencia al artículo: Influencia del síndrome de Gilbert en los
 valores de bilirrubina sérica y presencia de litiasis vesicular en
-pacientes con hemólisis crónica congénita, a) ¿Cuál o cuáles variables
-se estudiaron en este trabajo? b) Defina los distintos tratamientos
-considerados. c) A partir de la observación de la Figura 2, fundamente
-la aplicación de la técnica estadística utilizada. d) ¿Cuál fue la
-conclusión a la que se llegó mediante el test de Kruskal-Wallis? e) ¿Qué
-comentarios puede realizar acerca de la utilización de la prueba de
-Mann-Whitney para comparar los valores de bilirrubina en tres pares de
-grupos? f) Comente los resultados finales.
+pacientes con hemólisis crónica congénita,
+
+### a) ¿Cuál o cuáles variables se estudiaron en este trabajo? 
+
+Variables estudiadas en el trabajo presentado:
+
+-   Edad
+
+<!-- -->
+
+-   Bilirrubina total
+
+-   Nivel de hemoglobina
+
+-   Nivel de reticulocitos
+
+-   Presencia de litiasis vesicular
+
+### b) Defina los distintos tratamientos considerados. 
+
+Los tratamientos considerados corresponden a variantes genotípicas de la
+región A(TA)nTAA del gen UCGT1A1:
+
+-   Genotipo TA\*7/TA\*7
+
+-   Genotipo TA\*6/TA\*7
+
+-   Genotipo TA\*6/TA\*6
+
+### c) A partir de la observación de la Figura 2, fundamente la aplicación de la técnica estadística utilizada. 
+
+La distribución del nivel de bilirrubina total para los tres grupos
+ensayados muestra en todos los casos una forma asimétrica hacia la
+derecha, pudiéndose suponer la ausencia de distribución normal. A raíz
+de esto, se encuentra fundamentada la elección de un test no paramétrico
+para la comparación entre grupos. En el punto e se discute acerca de la
+pertinencia de la técnica específica empleada.
+
+### d) ¿Cuál fue la conclusión a la que se llegó mediante el test de Kruskal-Wallis? 
+
+No se encontraron diferencias estadísticamente significativas en los
+valores de hemoglobina, recuento de reticulocitos ni edad entre los tres
+grupos de pacientes, sugiriendo un grado de hemólisis similar en todos
+los grupos.
+
+### e) ¿Qué comentarios puede realizar acerca de la utilización de la prueba de Mann-Whitney para comparar los valores de bilirrubina en tres pares de grupos? 
+
+Los autores emplearon la técnica de comparación de Mann-Whitney para la
+comparación de dos pares entre los 3 grupos estudiados. La comparación
+de a pares sin corrección aumenta la probabilidad de error de tipo I,
+por lo cual no es lo más óptimo. Hubiera sido más apropiado, por
+ejemplo, emplear un test de Kruskal-Wallis seguido de un test de
+comparaciones múltiples con corrección de Bonferroni (en caso de
+encontrar diferencias significativas en Kruskal-Wallis).
+
+### f) Comente los resultados finales.
+
+Los autores observan que los tres grupos de pacientes presentan niveles
+similares de hemólisis, con diferencias según el genotipo en los niveles
+de bilirrubina, y diferencias significativas también en la presencia de
+litiasis vesicular. De esta forma, concluyen que la identificación del
+síndrome de Gilbert puede ser importante para el pronóstico y plan
+médico de pacientes con hemólisis ligera o moderada.
 
 # Práctica 5
 
-## Ejercicio 3 (Gonzalo)
+## Ejercicio 3
 
 En disciplinas como la Ecología o la Biología de la Conservación, uno de
 los problemas comunes es la identificación de los factores que influyen
@@ -185,16 +457,164 @@ número de individuos presentes en un área determinada. En un estudio
 sobre la población de un parásito, se registró el logaritmo del recuento
 de parásitos de dicha especie en 15 localizaciones con diversas
 condiciones ambientales. Como variables explicativas se consideraron la
-temperatura (x1, en °C) y el porcentaje de humedad (x2). Los datos
-obtenidos se encuentran en el archivo “parasito.txt”. a) Realice el
-ajuste del modelo de regresión lineal múltiple incluyendo las 2
-variables explicativas como variables regresoras y escriba la función de
-regresión estimada. b) Ensaye la significación global de la regresión.
-c) Realice las pruebas de hipótesis que le permitan evaluar: i. Si el
-coeficiente de regresión β1 es igual a cero. ii. Si el coeficiente de
-regresión β2 es igual a cero. d) Evalúe la adecuación del modelo
-propuesto a través del valor de R2 y del análisis de residuos. e) Ajuste
-el modelo Y = 0 + 1x1+ ε. Utilice la información del modelo para
-probar la significación de la variable predictora Humedad con un test F.
-Ayuda: revisar test de significación para subconjuntos. ¿Coincide el
-resultado con el obtenido en el punto c? Justificar.
+temperatura (x1, en °C) y el porcentaje de humedad (x2).
+
+Los datos obtenidos se encuentran en el archivo “parasito.txt”.
+
+a)  Realice el ajuste del modelo de regresión lineal múltiple incluyendo
+    las 2 variables explicativas como variables regresoras y escriba la
+    función de regresión estimada.
+
+b)  Ensaye la significación global de la regresión.
+
+c)  Realice las pruebas de hipótesis que le permitan evaluar: i. Si el
+    coeficiente de regresión β1 es igual a cero. ii. Si el coeficiente
+    de regresión β2 es igual a cero.
+
+d)  Evalúe la adecuación del modelo propuesto a través del valor de R2 y
+    del análisis de residuos.
+
+e)  Ajuste el modelo Y = 𝛽~0~ + 𝛽~1~x~1~+ ε. Utilice la información del
+    modelo para probar la significación de la variable predictora
+    Humedad con un test F. Ayuda: revisar test de significación para
+    subconjuntos. ¿Coincide el resultado con el obtenido en el punto c?
+    Justificar.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+parasito <- read_delim('parasito.txt')
+plot(parasito$temperatura, parasito$log_count, main = 'Log_count vs Temperatura',xlab = "Temperatura", ylab = "Log_count")
+plot(parasito$humedad, parasito$log_count,  xlab = "Humedad (%)", main = 'Log_count vs Humedad',  ylab = "Log_count")
+print('Correlación entre temperatura y humedad')
+cor(parasito$temperatura, parasito$humedad)
+
+```
+
+Se observa una relación lineal, directa y moderada entre las dos
+variables predictoras y la respuesta analizada. No se observa
+correlación entre los predictores. Se procede a modelar la relación
+entre las variables mediante un análisis de regresión lineal múltiple.
+
+### a) Ajuste del modelo de regresión
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+modelo <- lm(log_count ~ temperatura + humedad , data = parasito)
+modelo
+```
+
+[Función de regresión estimada:]{.underline}
+
+log_count = 𝛽~0 +~ 𝛽~1~ temperatura + 𝛽~2~ humedad
+
+log_count = 1.865 + 0.00393 temperatura + 0.00390 humedad
+
+### b) Ensayo de significación global de la regresión
+
+$H_0)$ $\beta_1= \beta_2 =0$
+
+$H_1)$ Al menos un $\beta_j \neq 0$; $j = 1;2$
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+summary(modelo)
+```
+
+F = 64.81; p-value = 3.7 e-07 \< 0.05 ⇒ Se rechaza H~0~
+
+Con un nivel de significación del 5%, se concluye que al menos uno de
+los coeficientes de regresión es significativamente distinto de cero.
+
+### c) Ensayo de significación individual de la regresión
+
+$H_0)$ $\beta_1=0$
+
+$H_1)$ $\beta_1\neq0$
+
+p-value = 0.000348 \< 0.05 ⇒ Se rechaza H~0~
+
+Con un nivel de significación del 5%, el coeficiente de regresión para
+la temperatura es significativamente distinto de cero.
+
+$H_0)$ $\beta_2=0$
+
+$H_1)$ $\beta_2\neq0$
+
+p-value = 4.65e-06 \< 0.05 ⇒ Se rrechaza H~0~
+
+Con un nivel de significación del 5%, el coeficiente de regresión para
+la humedad es significativamente distinto de cero.
+
+### d) Evaluación del modelo
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+residuos <- modelo$residuals
+predichos <- modelo$fitted.values
+
+# QQ plot
+shapiro.test(residuos)
+qqnorm(residuos, main = "QQ-Plot de residuos")
+qqline(residuos)
+```
+
+```{r echo=FALSE, message=FALSE, warning=F}
+# Residuos vs. valores predichos
+stripchart(residuos ~ predichos, vertical = TRUE,
+           main = "Residuos versus valores predichos de Y",
+           xlab = "Valor predicho",
+           ylab = "Residuos")
+abline(h = 0)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Residuos vs. variables explicativas
+stripchart(residuos ~ parasito$temperatura, vertical = TRUE,
+           main = "Residuos versus temperatura",
+           xlab = "Temperatura",
+           ylab = "Residuos")
+abline(h = 0)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Residuos vs. variables explicativas
+stripchart(residuos ~ parasito$humedad, vertical = TRUE,
+           main = "Residuos versus humedad",
+           xlab = "Humedad",
+           ylab = "Residuos")
+abline(h = 0)
+
+```
+
+R^2^ = 0.9153
+
+R^2^ ajustado = 0.9012
+
+p-value test de shapiro para residuos = 0.7493
+
+El análisis de los residuos permite verificar el supuesto de normalidad
+de los errores aleatorios. Adicionalmente, observando los gráficos de
+residuos vs valores predichos y los valores de las variables, se
+observan resultados compatibles con el supuesto de homocedasticidad.
+
+Con respecto a los valores de R^2^ , se observa que aproximadamente el
+90% de la variabilidad observada en el logaritmo del recuento de
+parásitos es explicada por el modelo de regresión que contempla la
+variabilidad de tempratura y humedad.
+
+### e) Ajuste del modelo para la variable predictora humedad
+
+```{r echo=FALSE, message=FALSE, warning=F}
+modelo_humedad <- lm(log_count ~ temperatura, data = parasito)
+
+summary(modelo_humedad)
+
+anova(modelo_humedad, modelo)
+```
+
+La comparación de los modelos mediante ANOVA tiene un valor de F de
+61.403 con un p-value de 4.645e-06. Esto indica que contemplar la
+variable humedad dentro del modelo genera un cambio significativo en el
+ajuste.
+
+El resultado del test F coincide con los resultados observados en el
+punto c. Esto ocurre porque matemáticamente los valores coinciden cuando
+en el subcojunto analizado hay un solo predictor.
